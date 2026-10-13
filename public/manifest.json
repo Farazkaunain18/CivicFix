@@ -1,0 +1,44 @@
+{
+  "name": "Organigen Health",
+  "short_name": "Organigen",
+  "description": "Rural health triage assistant for Punjab villagers",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#F0FDFA",
+  "theme_color": "#0F766E",
+  "orientation": "portrait-primary",
+  "categories": ["medical", "health", "utilities"],
+  "lang": "pa",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Check Symptoms",
+      "short_name": "Triage",
+      "description": "Start a new symptom assessment",
+      "url": "/check",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Nearby Hospitals",
+      "short_name": "Hospitals",
+      "description": "Find nearest Punjab civil hospital",
+      "url": "/facilities",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
