@@ -1,245 +1,482 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useCivic } from "@/context/CivicContext";
 import {
-  Activity,
+  ShieldAlert,
   ArrowRight,
-  ShieldCheck,
+  Sparkles,
   MapPin,
-  Mic,
-  Clock,
-  PhoneCall,
   CheckCircle2,
+  Clock,
+  Users,
+  Building2,
+  Zap,
+  Activity,
+  Layers,
+  ChevronRight,
+  TrendingUp,
   AlertTriangle,
-  HeartHandshake,
+  FileCheck,
+  Camera,
 } from "lucide-react";
-import { useI18n } from "@/lib/i18n";
 
 export default function LandingPage() {
-  const { t } = useI18n();
+  const { stats, reports } = useCivic();
+  const [activeCategoryTab, setActiveCategoryTab] = useState<string>("pothole");
 
-  const stepCards = [
+  // Filter recent reports for public ticker
+  const recentReports = reports.slice(0, 5);
+
+  const categoryFeatures = [
     {
-      num: "01",
-      icon: Mic,
-      title: t("hero.step1Title"),
-      desc: t("hero.step1Desc"),
-      color: "bg-teal-50 dark:bg-teal-950/40 text-primary dark:text-teal-400 border-teal-200 dark:border-teal-800",
+      id: "pothole",
+      name: "Road Potholes & Cracks",
+      icon: "🕳️",
+      dept: "Roads & Transportation",
+      sla: "8-24 Hours",
+      desc: "Camera-assisted depth and perimeter scanning instantly flags asphalt degradation and hazards to cyclist safety.",
+      stat: "1,420 repaired this year",
     },
     {
-      num: "02",
-      icon: Activity,
-      title: t("hero.step2Title"),
-      desc: t("hero.step2Desc"),
-      color: "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800",
+      id: "streetlight",
+      name: "Broken & Flickering Streetlights",
+      icon: "💡",
+      dept: "Electrical & Lighting",
+      sla: "12-36 Hours",
+      desc: "Pins pole coordinates on the municipal electrical grid and groups clustered outages to dispatch high-lift bucket trucks.",
+      stat: "98.2% restored on time",
     },
     {
-      num: "03",
-      icon: MapPin,
-      title: t("hero.step3Title"),
-      desc: t("hero.step3Desc"),
-      color: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800",
+      id: "garbage",
+      name: "Garbage Overflow & Illegal Dumping",
+      icon: "🗑️",
+      dept: "Sanitation & Waste",
+      sla: "4-12 Hours",
+      desc: "Identifies debris volume, pedestrian sidewalk blockage, and biological hazards to mobilize sanitation compactor units.",
+      stat: "2.8 tons diverted weekly",
+    },
+    {
+      id: "water_leak",
+      name: "Water Main Leaks & Flooding",
+      icon: "💧",
+      dept: "Water Supply & Sewerage",
+      sla: "2-6 Hours Emergency",
+      desc: "High-priority acoustic and visual detection triggers water department isolation crews to protect pavement integrity.",
+      stat: "3.4M gallons conserved",
     },
   ];
 
+  const currentCategory =
+    categoryFeatures.find((c) => c.id === activeCategoryTab) || categoryFeatures[0];
+
   return (
-    <div className="space-y-12 sm:space-y-20 pb-16">
+    <div className="space-y-20 pb-16">
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-mint/60 via-surface-light to-white dark:from-slate-900 dark:via-slate-900/90 dark:to-slate-950 border border-teal-100 dark:border-slate-800 p-6 sm:p-12 lg:p-16 shadow-card">
-        <div className="max-w-3xl">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100/90 dark:bg-teal-900/50 border border-teal-300 dark:border-teal-700 text-primary-900 dark:text-teal-200 text-xs sm:text-sm font-bold mb-6"
-          >
-            <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
-            <span>{t("hero.badge")}</span>
-          </motion.div>
+      <section className="relative pt-12 sm:pt-20 lg:pt-24 overflow-hidden">
+        {/* Ambient background glows */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none" />
 
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-6"
-          >
-            {t("hero.title")}
-          </motion.h1>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-8">
+          {/* Tagline Pill */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/80 shadow-sm animate-fade-in">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+            <span>CivicTech Hackathon Edition 2026</span>
+            <span className="w-1 h-1 rounded-full bg-indigo-400" />
+            <span className="text-slate-500 dark:text-slate-400 font-medium">
+              Next-Gen Municipal AI
+            </span>
+          </div>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-xl text-slate-600 dark:text-slate-300 font-normal leading-relaxed mb-8 max-w-2xl"
-          >
-            {t("hero.subtitle")}
-          </motion.p>
+          {/* Main Headline */}
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+              Bridging Communities <br className="hidden sm:block" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 dark:from-indigo-400 dark:via-purple-300 dark:to-cyan-400">
+                and Municipal Solutions
+              </span>
+            </h1>
+            <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+              CivicFix transforms broken sidewalks, hazardous potholes, dark streetlights, and water leaks into rapid municipal action. Snap a photo, let AI triage severity, and track city repairs in real time.
+            </p>
+          </div>
 
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-          >
+          {/* Call to Actions */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Link
-              href="/check"
-              className="flex items-center justify-center gap-3 px-8 py-4 bg-primary hover:bg-primary-800 text-white rounded-2xl font-bold text-base sm:text-lg shadow-floating hover:shadow-lg transition-all transform active:scale-95 min-h-touch"
+              href="/report"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/25 hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
             >
-              <span>{t("hero.cta")}</span>
-              <ArrowRight className="w-5 h-5 shrink-0" />
+              <ShieldAlert className="w-4 h-4" />
+              <span>Report an Issue Now</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
 
             <Link
-              href="/facilities"
-              className="flex items-center justify-center gap-2.5 px-6 py-4 bg-white dark:bg-slate-800 hover:bg-mint/40 text-slate-800 dark:text-slate-200 rounded-2xl font-bold text-base border border-teal-200 dark:border-slate-700 transition-all min-h-touch"
+              href="/dashboard"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-sm transition-all"
             >
-              <MapPin className="w-5 h-5 text-teal-600 dark:text-teal-400 shrink-0" />
-              <span>{t("hero.ctaFind")}</span>
+              <MapPin className="w-4 h-4 text-indigo-500" />
+              <span>Live Community Feed</span>
             </Link>
-          </motion.div>
 
-          {/* Rapid highlights */}
-          <div className="mt-10 pt-8 border-t border-teal-200/50 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>100% Free & Anonymous</span>
+            <Link
+              href="/admin"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-transparent hover:border-slate-200 dark:hover:border-slate-800 transition-all"
+            >
+              <Building2 className="w-4 h-4 text-slate-400" />
+              <span>Municipal Portal</span>
+            </Link>
+          </div>
+
+          {/* Real-Time Counter Stats */}
+          <div className="pt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/70 dark:bg-slate-900/60 backdrop-blur border border-slate-200/80 dark:border-slate-800 shadow-sm text-left">
+              <div className="flex items-center justify-between text-slate-400 mb-1">
+                <span className="text-xs font-medium uppercase tracking-wider">Total Reports</span>
+                <Layers className="w-4 h-4 text-indigo-500" />
+              </div>
+              <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                {stats.totalReports.toLocaleString()}
+              </p>
+              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1 mt-1">
+                <TrendingUp className="w-3 h-3" /> +12% this month
+              </span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Voice Recognition (ਮਾਈਕ)</span>
+
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/70 dark:bg-slate-900/60 backdrop-blur border border-slate-200/80 dark:border-slate-800 shadow-sm text-left">
+              <div className="flex items-center justify-between text-slate-400 mb-1">
+                <span className="text-xs font-medium uppercase tracking-wider">Resolved Issues</span>
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+              </div>
+              <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-emerald-600 dark:text-emerald-400">
+                {stats.resolvedReports.toLocaleString()}
+              </p>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">
+                87% resolution rate
+              </span>
             </div>
-            <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Works Offline (PWA)</span>
+
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/70 dark:bg-slate-900/60 backdrop-blur border border-slate-200/80 dark:border-slate-800 shadow-sm text-left">
+              <div className="flex items-center justify-between text-slate-400 mb-1">
+                <span className="text-xs font-medium uppercase tracking-wider">Active Citizens</span>
+                <Users className="w-4 h-4 text-cyan-500" />
+              </div>
+              <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                {stats.activeCitizens.toLocaleString()}
+              </p>
+              <span className="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold mt-1 block">
+                Across 28 City Wards
+              </span>
+            </div>
+
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/70 dark:bg-slate-900/60 backdrop-blur border border-slate-200/80 dark:border-slate-800 shadow-sm text-left">
+              <div className="flex items-center justify-between text-slate-400 mb-1">
+                <span className="text-xs font-medium uppercase tracking-wider">Avg SLA Response</span>
+                <Clock className="w-4 h-4 text-amber-500" />
+              </div>
+              <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                {stats.avgResolutionHours} hrs
+              </p>
+              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold mt-1 block">
+                Faster than state avg (14h)
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3-Step "How It Works" */}
-      <section className="space-y-8">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {t("hero.stepsTitle")}
+      {/* Live Recent Community Reports Ticker */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl bg-slate-100/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800 p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              </span>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                Recent Community Reports Ticker
+              </h2>
+            </div>
+            <Link
+              href="/dashboard"
+              className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+            >
+              <span>Explore all live issues</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {recentReports.slice(0, 3).map((rep) => {
+              const severityBadge =
+                rep.severity === "high"
+                  ? "bg-rose-500/10 text-rose-500 border-rose-500/20"
+                  : rep.severity === "medium"
+                  ? "bg-amber-500/10 text-amber-500 border-amber-500/20"
+                  : "bg-emerald-500/10 text-emerald-500 border-emerald-500/20";
+
+              return (
+                <Link
+                  key={rep.id}
+                  href={`/dashboard?id=${rep.id}`}
+                  className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 hover:border-indigo-500/50 transition-all group"
+                >
+                  <img
+                    src={rep.imageUrl}
+                    alt={rep.title}
+                    className="w-12 h-12 rounded-lg object-cover flex-shrink-0"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="text-[10px] font-mono text-slate-400">
+                        #{rep.id}
+                      </span>
+                      <span
+                        className={`text-[9px] uppercase px-1.5 py-0.2 font-bold rounded border ${severityBadge}`}
+                      >
+                        {rep.severity}
+                      </span>
+                    </div>
+                    <p className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                      {rep.title}
+                    </p>
+                    <p className="text-[10px] text-slate-500 truncate flex items-center gap-1 mt-0.5">
+                      <MapPin className="w-2.5 h-2.5 text-slate-400" />
+                      {rep.address}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Category Breakdown Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto space-y-3 mb-10">
+          <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full border border-indigo-200 dark:border-indigo-800">
+            Intelligent Civic Infrastructure Triage
+          </span>
+          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            Specialized AI for Every City Department
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-            Designed specifically for villagers and rural community health workers in Punjab.
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            CivicFix automatically analyzes visual severity, matches municipal GIS boundaries, and routes directly to the specialized dispatch crew.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {stepCards.map((step, idx) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.num}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.15 }}
-                className={`p-6 sm:p-8 rounded-3xl border-2 ${step.color} shadow-card relative flex flex-col justify-between`}
-              >
+        {/* Tab Controls */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+          {categoryFeatures.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategoryTab(cat.id)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                activeCategoryTab === cat.id
+                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20"
+                  : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800"
+              }`}
+            >
+              <span>{cat.icon}</span>
+              <span>{cat.name}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Category Detail Card */}
+        <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl p-3 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900">
+                  {currentCategory.icon}
+                </span>
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-800 shadow-sm">
-                      <Icon className="w-7 h-7 shrink-0" />
-                    </div>
-                    <span className="text-2xl font-black text-slate-400/70 dark:text-slate-600">
-                      {step.num}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
-                    {step.title}
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    {currentCategory.name}
                   </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                    {step.desc}
+                  <span className="text-xs text-indigo-600 dark:text-indigo-400 font-medium">
+                    Department: {currentCategory.dept}
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                {currentCategory.desc}
+              </p>
+
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-400 uppercase font-bold">Target SLA</span>
+                  <p className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-0.5">
+                    {currentCategory.sla}
                   </p>
                 </div>
-
-                <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex items-center text-xs font-bold text-primary dark:text-teal-400">
-                  <span>Step {step.num} Details</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-400 uppercase font-bold">Annual Impact</span>
+                  <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                    {currentCategory.stat}
+                  </p>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+
+              <div className="pt-2">
+                <Link
+                  href={`/report?category=${currentCategory.id}`}
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700"
+                >
+                  <span>Report a {currentCategory.name.toLowerCase()} now</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Visual Preview Graphic */}
+            <div className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-950 p-5 text-white">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <span className="text-xs font-mono text-indigo-400">AI Diagnostic Kernel</span>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">
+                  Model Conf: 97.4%
+                </span>
+              </div>
+              <div className="space-y-3 py-4 text-xs font-mono">
+                <div className="flex justify-between text-slate-400">
+                  <span>Target Class:</span>
+                  <span className="text-slate-200 font-bold">{currentCategory.id.toUpperCase()}</span>
+                </div>
+                <div className="flex justify-between text-slate-400">
+                  <span>Routing Target:</span>
+                  <span className="text-indigo-300">{currentCategory.dept}</span>
+                </div>
+                <div className="flex justify-between text-slate-400">
+                  <span>Priority Tag:</span>
+                  <span className="text-amber-400 font-bold">ELEVATED_SLA</span>
+                </div>
+                <div className="flex justify-between text-slate-400">
+                  <span>Public Safety Index:</span>
+                  <span className="text-rose-400">HIGH_RISK_ROADWAY</span>
+                </div>
+              </div>
+              <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Auto-Dispatched</span>
+                <span className="text-emerald-400 flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3" /> Ready for Field Crew
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Clinical Safety & Red-Flag Guarantee */}
-      <section className="rounded-3xl bg-slate-900 text-white p-6 sm:p-10 shadow-card border border-slate-800 relative overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-2 text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-wider">
-              <AlertTriangle className="w-4 h-4 shrink-0" />
-              <span>{t("hero.safetyHeading")}</span>
+      {/* 4-Step How It Works Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            How CivicFix Accelerates Solutions
+          </h2>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            From the moment a resident spots an issue to the final municipal sign-off.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 relative group hover:border-indigo-500/50 transition-all">
+            <span className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">
+              STEP 01
+            </span>
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+              <Camera className="w-5 h-5" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-              Deterministic Safety Protocols Before Any AI
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              Live Camera & GPS
             </h3>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-              {t("hero.safetyBody")}
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Resident captures live device camera evidence and precision GPS coordinates, instantly checking Google Street View 360° ground-level coverage.
             </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="px-3 py-1 bg-slate-800 text-teal-300 rounded-lg text-xs font-semibold">
-                ✓ No Prescription Meds
-              </span>
-              <span className="px-3 py-1 bg-slate-800 text-teal-300 rounded-lg text-xs font-semibold">
-                ✓ No Drug Dosages
-              </span>
-              <span className="px-3 py-1 bg-slate-800 text-amber-300 rounded-lg text-xs font-semibold">
-                ✓ Automatic 108 Emergency Trigger
-              </span>
-            </div>
           </div>
 
-          <div className="bg-slate-800/90 rounded-2xl p-6 border border-slate-700 flex flex-col justify-center text-center space-y-4">
-            <div className="w-12 h-12 bg-red-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
-              <PhoneCall className="w-6 h-6 animate-pulse" />
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 relative group hover:border-indigo-500/50 transition-all">
+            <span className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">
+              STEP 02
+            </span>
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+              <Sparkles className="w-5 h-5" />
             </div>
-            <div>
-              <div className="text-xs uppercase font-bold text-slate-400">Punjab Emergency Dispatch</div>
-              <div className="text-3xl font-black text-white">Call 108</div>
-              <div className="text-xs text-slate-400 mt-1">Free 24/7 Government Ambulance</div>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              Automated AI Triage
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Visual analysis tags defect severity (High, Medium, Low), estimates repair urgency, and generates a structured work order ticket.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 relative group hover:border-indigo-500/50 transition-all">
+            <span className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">
+              STEP 03
+            </span>
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+              <Building2 className="w-5 h-5" />
             </div>
-            <a
-              href="tel:108"
-              className="px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-sm transition-all"
-            >
-              Dial 108 Directly
-            </a>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              Municipal Dispatch
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              City officials triage tickets on an interactive Kanban board, assigning maintenance crews and monitoring SLA resolution timers.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 relative group hover:border-indigo-500/50 transition-all">
+            <span className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">
+              STEP 04
+            </span>
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              Community Verification
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Once repaired, tickets are certified with resolution notes. Residents receive live confirmation and upvote the completed fix.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ASHA Telemetry Preview Card */}
-      <section className="rounded-3xl bg-teal-900/10 dark:bg-slate-800/50 border border-teal-200 dark:border-slate-700 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center shrink-0">
-            <HeartHandshake className="w-6 h-6" />
-          </div>
-          <div>
-            <h4 className="text-lg font-bold text-slate-900 dark:text-white">
-              Are you an ASHA, ANM, or Village Health Worker?
-            </h4>
-            <p className="text-sm text-slate-600 dark:text-slate-400">
-              Access real-time disease surveillance telemetry and village triage splits on the ASHA dashboard.
+      {/* Call To Action Banner */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-8 sm:p-12 border border-indigo-700/50 shadow-2xl">
+          <div className="max-w-2xl space-y-4 relative z-10">
+            <span className="text-xs uppercase font-bold tracking-widest text-indigo-300">
+              Take Action In Your Neighborhood
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+              Spot a hazard? Don&apos;t wait for someone else to report it.
+            </h2>
+            <p className="text-xs sm:text-sm text-indigo-200 leading-relaxed">
+              Every report made on CivicFix helps city engineers prioritize road crews, prevent vehicular damage, and keep community streets safe.
             </p>
+            <div className="pt-2 flex flex-wrap gap-3">
+              <Link
+                href="/report"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs bg-white text-indigo-900 hover:bg-indigo-50 transition-all shadow-md"
+              >
+                <ShieldAlert className="w-4 h-4 text-indigo-600" />
+                <span>Submit a Civic Report</span>
+              </Link>
+              <Link
+                href="/admin"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs bg-indigo-800/80 hover:bg-indigo-700 text-white border border-indigo-600/60 transition-all"
+              >
+                <Building2 className="w-4 h-4 text-indigo-300" />
+                <span>Open Municipal Board</span>
+              </Link>
+            </div>
           </div>
         </div>
-
-        <Link
-          href="/dashboard"
-          className="shrink-0 px-6 py-3 bg-white dark:bg-slate-800 hover:bg-teal-50 border border-teal-300 dark:border-slate-600 text-primary dark:text-teal-300 rounded-2xl font-bold text-sm transition-all min-h-touch flex items-center gap-2"
-        >
-          <span>Open ASHA Dashboard</span>
-          <ArrowRight className="w-4 h-4" />
-        </Link>
       </section>
     </div>
   );

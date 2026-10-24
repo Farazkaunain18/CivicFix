@@ -2,125 +2,121 @@
 
 import React from "react";
 import Link from "next/link";
-import { Phone, AlertTriangle, ShieldCheck, Heart } from "lucide-react";
-import { useI18n } from "@/lib/i18n";
+import { ShieldAlert, Github, Heart, Activity, CheckCircle2, ExternalLink } from "lucide-react";
 
 export default function Footer() {
-  const { t } = useI18n();
-
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-12 pb-24 border-t border-slate-800 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Col 1: About & Purpose */}
-          <div>
-            <div className="flex items-center space-x-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white">
-                <Heart className="w-4 h-4 text-mint" />
+    <footer className="w-full border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950 transition-colors duration-200 mt-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Brand Info */}
+          <div className="space-y-4 md:col-span-1">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-600 text-white shadow-sm">
+                <ShieldAlert className="w-4 h-4" />
               </div>
-              <span className="text-lg font-bold text-white tracking-tight">
-                Organigen Health
+              <span className="font-bold text-base tracking-tight text-slate-900 dark:text-white">
+                CivicFix
               </span>
             </div>
-            <p className="text-sm text-slate-400 mb-4 leading-relaxed">
-              {t("hero.subtitle")}
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Open civic infrastructure reporting platform connecting community residents with municipal operations through automated AI triage and transparent tracking.
             </p>
-            <div className="flex items-center space-x-2 text-xs text-teal-400 font-medium">
-              <ShieldCheck className="w-4 h-4" />
-              <span>WHO / MOHFW Triage Protocols Adapted for Punjab</span>
+            <div className="flex items-center gap-2 text-[11px] text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full w-fit">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Municipal Systems: Operational</span>
             </div>
           </div>
 
-          {/* Col 2: Punjab Emergency Directory */}
+          {/* Citizen Tools */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
-              Punjab Emergency Helplines
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-3">
+              Citizen Tools
             </h4>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
               <li>
-                <a
-                  href="tel:108"
-                  className="flex items-center space-x-2 text-red-400 hover:text-red-300 font-semibold transition-colors"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  <span>108 - Free Ambulance Service</span>
-                </a>
+                <Link href="/report" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  Report Broken Infrastructure
+                </Link>
               </li>
               <li>
-                <a
-                  href="tel:102"
-                  className="flex items-center space-x-2 text-pink-400 hover:text-pink-300 transition-colors"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  <span>102 - Pregnant Women & Infants Transport</span>
-                </a>
+                <Link href="/dashboard" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  Live Community Feed & Map
+                </Link>
               </li>
               <li>
-                <a
-                  href="tel:104"
-                  className="flex items-center space-x-2 text-amber-400 hover:text-amber-300 transition-colors"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  <span>104 - Medical Advice & Grievance Helpline</span>
-                </a>
+                <Link href="/dashboard" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  Upvote Local Fixes
+                </Link>
               </li>
               <li>
-                <a
-                  href="tel:14416"
-                  className="flex items-center space-x-2 text-teal-400 hover:text-teal-300 transition-colors"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  <span>14416 - Tele-MANAS Mental Health Support</span>
-                </a>
+                <span className="text-slate-400 dark:text-slate-600 flex items-center gap-1 cursor-not-allowed">
+                  SMS / WhatsApp Bot (Demo)
+                </span>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Quick Navigation */}
+          {/* Municipal Portal */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
-              Quick Links
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-3">
+              Municipality Portal
             </h4>
-            <ul className="space-y-2 text-sm text-slate-400">
+            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
               <li>
-                <Link href="/check" className="hover:text-teal-400 transition-colors">
-                  {t("nav.check")}
+                <Link href="/admin" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  Municipal Dispatch Kanban
                 </Link>
               </li>
               <li>
-                <Link href="/facilities" className="hover:text-teal-400 transition-colors">
-                  {t("nav.facilities")}
+                <Link href="/admin" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  Crew Assignment & SLA
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="hover:text-teal-400 transition-colors">
-                  {t("nav.dashboard")}
-                </Link>
+                <span className="text-slate-400 dark:text-slate-600">
+                  GIS Work Order Export
+                </span>
               </li>
               <li>
-                <Link href="/about" className="hover:text-teal-400 transition-colors">
-                  {t("nav.about")}
-                </Link>
+                <span className="text-slate-400 dark:text-slate-600">
+                  Automated Resolution Audits
+                </span>
               </li>
             </ul>
+          </div>
+
+          {/* CivicTech Hackathon Details */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-3">
+              CivicTech Hackathon
+            </h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
+              Built with Next.js 14, Tailwind CSS, Google Street View Embed API, and simulated multimodal computer vision triage for community impact.
+            </p>
+            <div className="flex flex-wrap gap-2 text-[10px]">
+              <span className="px-2 py-0.5 rounded bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                Next.js 14 App Router
+              </span>
+              <span className="px-2 py-0.5 rounded bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                Tailwind CSS
+              </span>
+              <span className="px-2 py-0.5 rounded bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                Google Street View 360°
+              </span>
+              <span className="px-2 py-0.5 rounded bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                AI Triage Flow
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Mandatory Clinical Disclaimer */}
-        <div className="pt-6 border-t border-slate-800">
-          <div className="bg-slate-800/80 rounded-2xl p-4 sm:p-5 flex items-start space-x-3.5 border border-slate-700">
-            <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-            <div className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              <strong className="text-amber-300 font-semibold block sm:inline mr-1">
-                Clinical Safety Notice:
-              </strong>
-              {t("app.disclaimer")}
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
-            <div>© {new Date().getFullYear()} Organigen Health. Built for rural community health in Punjab.</div>
-            <div>Offline-Capable Progressive Web App (PWA)</div>
+        <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+          <p>© 2026 CivicFix Platform. Empowering cities, one block at a time.</p>
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1">
+              Crafted with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> for community impact
+            </span>
           </div>
         </div>
       </div>

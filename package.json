@@ -1,12 +1,14 @@
 {
-  "name": "organigen-health",
+  "name": "civicfix",
   "version": "1.0.0",
+  "description": "CivicTech platform connecting citizens and municipalities for infrastructure triage",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node --test tests/civicfix.test.mjs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

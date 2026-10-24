@@ -1,61 +1,72 @@
-@import "leaflet/dist/leaflet.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: #0F766E;
-  --primary-light: #CCFBF1;
-  --bg-app: #F0FDFA;
-  --text-main: #0F172A;
+@layer base {
+  :root {
+    --bg-page: #f8fafc;
+    --text-primary: #0f172a;
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+  }
+
+  .dark {
+    --bg-page: #090d16;
+    --text-primary: #f8fafc;
+    --card-bg: #111827;
+    --card-border: #1f293d;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Gurmukhi", "Noto Sans Devanagari", sans-serif;
-  background-color: #F0FDFA;
-  color: #0F172A;
-  transition: font-size 0.2s ease, background-color 0.2s ease;
-}
-
-html.text-large {
-  font-size: 118%;
-}
-
-html.dark {
-  background-color: #0F172A;
-  color: #F8FAFC;
-}
-
-/* Touch targets min 48px */
-button, 
-a.button-link, 
-input[type="button"], 
-input[type="submit"] {
-  min-height: 48px;
-}
-
-/* Custom scrollbars */
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #99F6E4;
-  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: rgba(100, 116, 139, 0.5);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.8);
 }
 
-/* Leaflet map styles */
-.leaflet-container {
-  width: 100%;
-  height: 100%;
-  border-radius: 1rem;
-  z-index: 10;
+/* Glassmorphism */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(31, 41, 55, 0.8);
+}
+
+/* Subtle dot background for modern SaaS feel */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: radial-gradient(circle, rgba(148, 163, 184, 0.15) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
 }

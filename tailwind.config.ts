@@ -6,66 +6,49 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/context/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: "#0F766E", // Teal
-          50: "#F0FDFA",
-          100: "#CCFBF1",
-          200: "#99F6E4",
-          300: "#5EEAD4",
-          400: "#2DD4BF",
-          500: "#14B8A6",
-          600: "#0D9488",
-          700: "#0F766E",
-          800: "#115E59",
-          900: "#134E4A",
-          dark: "#115E59",
+        brand: {
+          50: "#EEF2FF",
+          100: "#E0E7FF",
+          200: "#C7D2FE",
+          300: "#A5B4FC",
+          400: "#818CF8",
+          500: "#6366F1", // Indigo
+          600: "#4F46E5",
+          700: "#4338CA",
+          800: "#3730A3",
+          900: "#312E81",
         },
-        mint: {
-          DEFAULT: "#CCFBF1",
-          light: "#E6FFFA",
-          dark: "#99F6E4",
-        },
-        amber: {
-          DEFAULT: "#F59E0B",
-          light: "#FEF3C7",
-          dark: "#D97706",
-        },
-        surface: {
-          light: "#F0FDFA",
-          dark: "#0F172A",
-          cardLight: "#FFFFFF",
-          cardDark: "#1E293B",
-        },
-        urgency: {
-          emergency: "#DC2626", // Red
-          urgent: "#F97316",    // Orange
-          soon: "#EAB308",      // Yellow-Amber
-          homecare: "#16A34A",  // Green
+        civic: {
+          blue: "#2563EB",
+          emerald: "#10B981",
+          amber: "#F59E0B",
+          rose: "#F43F5E",
+          cyan: "#06B6D4",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "var(--font-noto-gurmukhi)", "var(--font-noto-devanagari)", "system-ui", "sans-serif"],
-        punjabi: ["var(--font-noto-gurmukhi)", "sans-serif"],
-        hindi: ["var(--font-noto-devanagari)", "sans-serif"],
-      },
-      borderRadius: {
-        "2xl": "1rem",
-        "3xl": "1.5rem",
-      },
-      minHeight: {
-        touch: "48px",
-      },
-      minWidth: {
-        touch: "48px",
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
       },
       boxShadow: {
-        soft: "0 4px 20px -2px rgba(15, 118, 110, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
-        card: "0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04)",
-        floating: "0 20px 30px -10px rgba(15, 118, 110, 0.2)",
+        glow: "0 0 25px -5px rgba(99, 102, 241, 0.25)",
+        "glow-lg": "0 0 45px -10px rgba(99, 102, 241, 0.35)",
+        card: "0 10px 30px -10px rgba(0, 0, 0, 0.08)",
+        "card-dark": "0 10px 30px -10px rgba(0, 0, 0, 0.5)",
+      },
+      animation: {
+        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "fade-in": "fadeIn 0.3s ease-out forwards",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0", transform: "translateY(6px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
     },
   },
